@@ -14,7 +14,8 @@
   "mason.nvim": { "branch": "main", "commit": "fc98833b6da5de5a9c5b1446ac541577059555be" },
   "mini.nvim": { "branch": "main", "commit": "b612a069d1fe99300da43629e0e9c7a1a9b0acda" },
   "monokai-pro.nvim": { "branch": "master", "commit": "872f774303f79416000e8049630052f4124d9534" },
-  "nerdtree": { "branch": "master", "commit": "9b465acb2745beb988eff3c1e4aa75f349738230" },
+  "neo-tree.nvim": { "branch": "v3.x", "commit": "e96fd85bf18bc345dab332b345098fa5460dffac" },
+  "nui.nvim": { "branch": "main", "commit": "53e907ffe5eedebdca1cd503b00aa8692068ca46" },
   "nvim-cmp": { "branch": "main", "commit": "5a11682453ac6b13dbf32cd403da4ee9c07ef1c3" },
   "nvim-lspconfig": { "branch": "master", "commit": "9e932edb0af4e20880685ddb96a231669fbe8091" },
   "nvim-treesitter": { "branch": "master", "commit": "e6d02ec9efd396d294a7793f2066e2527b07b03a" },
@@ -26,7 +27,6 @@
   "todo-comments.nvim": { "branch": "main", "commit": "304a8d204ee787d2544d8bc23cd38d2f929e7cc5" },
   "tokyonight.nvim": { "branch": "main", "commit": "057ef5d260c1931f1dffd0f052c685dcd14100a3" },
   "undotree": { "branch": "master", "commit": "2556c6800b210b2096b55b66e74b4cc1d9ebbe4f" },
-  "vim-devicons": { "branch": "master", "commit": "71f239af28b7214eebb60d4ea5bd040291fb7e33" },
   "vim-sleuth": { "branch": "master", "commit": "be69bff86754b1aa5adcbb527d7fcd1635a84080" },
   "which-key.nvim": { "branch": "main", "commit": "370ec46f710e058c9c1646273e6b225acf47cbed" }
 }
