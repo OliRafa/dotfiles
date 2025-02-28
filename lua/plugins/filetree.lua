@@ -11,6 +11,16 @@ return {
       require('neo-tree').setup {
         close_if_last_window = false,
         enable_git_status = true,
+        filesystem = {
+          filtered_items = {
+            visible = true,
+            hide_dotfiles = false,
+            hide_gitignored = false,
+            never_show = {
+              '.git',
+            },
+          },
+        },
         window = {
           position = 'right',
         },
