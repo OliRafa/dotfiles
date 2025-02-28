@@ -44,7 +44,6 @@ require('lazy').setup({
   --        end,
   --    }
   --
-  require 'plugins.gitsigns',
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
   -- This is often very useful to both group configuration, as well as handle
@@ -60,13 +59,6 @@ require('lazy').setup({
   -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
 
   require 'plugins.whichkey',
-  -- NOTE: Plugins can specify dependencies.
-  --
-  -- The dependencies are proper plugin specifications as well - anything
-  -- you do for a plugin at the top level, you can do for a dependency.
-  --
-  -- Use the `dependencies` key to specify the dependencies of a particular plugin
-
   require 'plugins.telescope',
   require 'plugins.lsp',
   require 'plugins.autoformat',
@@ -116,11 +108,11 @@ require('lazy').setup({
   require 'plugins.filetree',
   require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.indent_line',
+  require 'kickstart.plugins.gitsigns',
 
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.neo-tree',
-  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
