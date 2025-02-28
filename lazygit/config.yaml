@@ -3,6 +3,6 @@ nerdFontsVersion: "3"
 customCommands:
   - key: "c"
     command: "cz c"
-    context: "files"
+    context: "global"
     loadingText: "Generating commit using Commitizen"
     subprocess: true
