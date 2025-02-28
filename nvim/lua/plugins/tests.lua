@@ -6,6 +6,7 @@ return {
       'nvim-lua/plenary.nvim',
       'antoinemadec/FixCursorHold.nvim',
       'nvim-treesitter/nvim-treesitter',
+      'nvim-neotest/neotest-python',
     },
     config = function()
       require('neotest').setup {
@@ -17,9 +18,70 @@ return {
       }
     end,
     keys = {
-      { '<leader>tf', "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>", desc = 'Run tests in file' },
-      { '<leader>tc', "<cmd>lua require('neotest').run.run()<cr>", desc = 'Run test case' },
-      { '<leader>td', "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", desc = 'Run debugger in test case' },
+      { '<leader>t', '', desc = '+test' },
+      {
+        '<leader>tf',
+        function()
+          require('neotest').run.run(vim.fn.expand '%')
+        end,
+        desc = 'Run All Tests in File',
+      },
+      {
+        '<leader>ta',
+        function()
+          require('neotest').run.run(vim.uv.cwd())
+        end,
+        desc = 'Run All Test',
+      },
+      {
+        '<leader>tc',
+        function()
+          require('neotest').run.run()
+        end,
+        desc = 'Run Test Case',
+      },
+      {
+        '<leader>tl',
+        function()
+          require('neotest').run.run_last()
+        end,
+        desc = 'Run Last Test',
+      },
+      {
+        '<leader>ts',
+        function()
+          require('neotest').summary.toggle()
+        end,
+        desc = 'Toggle Summary',
+      },
+      {
+        '<leader>to',
+        function()
+          require('neotest').output.open { enter = true, auto_close = true }
+        end,
+        desc = 'Show Output',
+      },
+      {
+        '<leader>tO',
+        function()
+          require('neotest').output_panel.toggle()
+        end,
+        desc = 'Toggle Output Panel',
+      },
+      {
+        '<leader>tS',
+        function()
+          require('neotest').run.stop()
+        end,
+        desc = 'Stop',
+      },
+      {
+        '<leader>tw',
+        function()
+          require('neotest').watch.toggle(vim.fn.expand '%')
+        end,
+        desc = 'Toggle Watch',
+      },
     },
   },
 }
