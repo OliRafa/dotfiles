@@ -109,6 +109,7 @@ require('lazy').setup({
   require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.indent_line',
   require 'kickstart.plugins.gitsigns',
+  require 'plugins.git-tools',
 
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.lint',
