@@ -1,7 +1,7 @@
 nerdFontsVersion: "3"
 
 customCommands:
-  - key: "Z"
+  - key: "c"
     command: "cz c"
     context: "global"
     loadingText: "Generating commit using Commitizen"
