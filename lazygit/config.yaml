@@ -1,0 +1,8 @@
+nerdFontsVersion: "3"
+
+customCommands:
+  - key: "c"
+    command: "cz c"
+    context: "files"
+    loadingText: "Generating commit using Commitizen"
+    subprocess: true
