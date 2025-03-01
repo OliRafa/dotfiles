@@ -112,6 +112,11 @@ require('lazy').setup({
   require 'plugins.git-tools',
   require 'plugins.terminal',
   require 'plugins.tests',
+  require 'plugins.docker',
+  require 'plugins.json',
+  -- require 'plugins.markdown',
+  require 'plugins.toml',
+  require 'plugins.yaml',
 
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.lint',
