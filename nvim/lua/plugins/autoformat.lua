@@ -32,13 +32,11 @@ return {
         }
       end,
       formatters_by_ft = {
-        eruby = { 'htmlbeautifier' },
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
         json = { 'jq' },
         lua = { 'stylua' },
         markdown = { 'markdownlint' },
         python = { 'isort', 'black' },
-        ruby = { 'standardrb' },
         typescript = { 'prettierd', 'prettier', stop_after_first = true },
         yaml = { 'yamlfix' },
       },
