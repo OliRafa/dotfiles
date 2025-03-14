@@ -32,12 +32,15 @@ return {
         }
       end,
       formatters_by_ft = {
+        eruby = { 'htmlbeautifier' },
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        json = { 'jq' },
         lua = { 'stylua' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
-        -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        markdown = { 'markdownlint' },
+        python = { 'isort', 'black' },
+        ruby = { 'standardrb' },
+        typescript = { 'prettierd', 'prettier', stop_after_first = true },
+        yaml = { 'yamlfix' },
       },
     },
   },
