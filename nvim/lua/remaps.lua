@@ -47,5 +47,5 @@ vim.keymap.set('n', '<leader>Y', '"+Y')
 
 -- Rails
 vim.keymap.set('n', '<C-d>', function()
-  vim.cmd 'terminal BINDING=0.0.0.0 bin/dev'
-end, { desc = 'Run rails server binding to 0.0.0.0' })
+  vim.cmd 'TermExec cmd="BINDING=0.0.0.0 bin/dev"'
+end, { desc = 'Run Rails server binding to 0.0.0.0' })
