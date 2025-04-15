@@ -118,6 +118,8 @@ require('lazy').setup({
   require 'plugins.toml',
   require 'plugins.yaml',
   require 'plugins.ruby',
+  require 'plugins.elixir',
+  require 'plugins.tailwind',
 
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.lint',
