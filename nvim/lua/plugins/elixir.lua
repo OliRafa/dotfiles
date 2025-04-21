@@ -7,36 +7,15 @@ return {
   end,
   {
     'neovim/nvim-lspconfig',
-    opts = {
-      servers = {
-        elixirls = {
-          keys = {
-            {
-              '<leader>cp',
-              function()
-                local params = vim.lsp.util.make_position_params()
-                LazyVim.lsp.execute {
-                  command = 'manipulatePipes:serverid',
-                  arguments = { 'toPipe', params.textDocument.uri, params.position.line, params.position.character },
-                }
-              end,
-              desc = 'To Pipe',
-            },
-            {
-              '<leader>cP',
-              function()
-                local params = vim.lsp.util.make_position_params()
-                LazyVim.lsp.execute {
-                  command = 'manipulatePipes:serverid',
-                  arguments = { 'fromPipe', params.textDocument.uri, params.position.line, params.position.character },
-                }
-              end,
-              desc = 'From Pipe',
-            },
-          },
-        },
-      },
-    },
+    config = function()
+      local lspconfig = require 'lspconfig'
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+      lspconfig.elixirls.setup {
+        cmd = { 'elixir-ls' },
+        -- set default capabilities for cmp lsp completion source
+        capabilities = capabilities,
+      }
+    end,
   },
   {
     'nvim-treesitter/nvim-treesitter',
@@ -95,5 +74,36 @@ return {
     ft = function(_, ft)
       vim.list_extend(ft, { 'livebook' })
     end,
+  },
+  {
+    'elixir-tools/elixir-tools.nvim',
+    version = '*',
+    event = { 'BufReadPre', 'BufNewFile' },
+    config = function()
+      local elixir = require 'elixir'
+      local elixirls = require 'elixir.elixirls'
+
+      elixir.setup {
+        nextls = { enable = false },
+        elixirls = {
+          enable = true,
+          settings = elixirls.settings {
+            dialyzerEnabled = false,
+            enableTestLenses = false,
+          },
+          on_attach = function(client, bufnr)
+            vim.keymap.set('n', '<space>fp', ':ElixirFromPipe<cr>', { buffer = true, noremap = true, desc = 'From Pipe' })
+            vim.keymap.set('n', '<space>tp', ':ElixirToPipe<cr>', { buffer = true, noremap = true, desc = 'To Pipe' })
+            vim.keymap.set('v', '<space>em', ':ElixirExpandMacro<cr>', { buffer = true, noremap = true, desc = 'Expand Macro' })
+          end,
+        },
+        projectionist = {
+          enable = false,
+        },
+      }
+    end,
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
   },
 }
