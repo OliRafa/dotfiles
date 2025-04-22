@@ -13,6 +13,7 @@ return {
       },
     }
   end,
+  { 'WhoIsSethDaniel/mason-tool-installer.nvim', opts = { ensure_installed = { 'tailwindcss' } } },
   {
     'neovim/nvim-lspconfig',
     opts = {
@@ -59,7 +60,6 @@ return {
   },
   {
     'hrsh7th/nvim-cmp',
-    optional = true,
     dependencies = {
       { 'roobert/tailwindcss-colorizer-cmp.nvim', opts = {} },
     },
