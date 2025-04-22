@@ -1,4 +1,8 @@
 return {
+  {
+    'williamboman/mason.nvim',
+    opts = { ensure_installed = { 'elixir-ls' } },
+  },
   { 'WhoIsSethDaniel/mason-tool-installer.nvim', opts = { ensure_installed = { 'elixir-ls' } } },
   {
     'neovim/nvim-lspconfig',
@@ -82,6 +86,7 @@ return {
         nextls = { enable = false },
         elixirls = {
           enable = true,
+          cmd = 'elixir-ls',
           settings = elixirls.settings {
             dialyzerEnabled = false,
             enableTestLenses = false,

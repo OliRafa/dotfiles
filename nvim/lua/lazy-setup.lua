@@ -25,6 +25,7 @@ require('lazy').setup({
   require 'themes',
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  { import = 'plugins' },
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -57,13 +58,6 @@ require('lazy').setup({
   --
   -- Then, because we use the `opts` key (recommended), the configuration runs
   -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
-
-  require 'plugins.whichkey',
-  require 'plugins.telescope',
-  require 'plugins.lsp',
-  require 'plugins.autoformat',
-  require 'plugins.autocompletion',
-  require 'plugins.highlight-todos',
 
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
@@ -103,23 +97,9 @@ require('lazy').setup({
     end,
   },
 
-  require 'plugins.undotree',
-  require 'plugins.treesitter',
-  require 'plugins.filetree',
   require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.indent_line',
   require 'kickstart.plugins.gitsigns',
-  require 'plugins.git-tools',
-  require 'plugins.terminal',
-  require 'plugins.tests',
-  require 'plugins.docker',
-  require 'plugins.json',
-  -- require 'plugins.markdown',
-  require 'plugins.toml',
-  require 'plugins.yaml',
-  require 'plugins.ruby',
-  require 'plugins.elixir',
-  require 'plugins.tailwind',
 
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.lint',
