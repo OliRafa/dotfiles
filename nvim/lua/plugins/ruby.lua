@@ -34,7 +34,6 @@ return {
         },
       },
     },
-    ft = 'ruby',
   },
   {
     'williamboman/mason.nvim',
