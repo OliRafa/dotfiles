@@ -1,10 +1,5 @@
 return {
-  recommended = function()
-    return LazyVim.extras.wants {
-      ft = { 'elixir', 'eelixir', 'heex', 'surface', 'livebook' },
-      root = 'mix.exs',
-    }
-  end,
+  { 'WhoIsSethDaniel/mason-tool-installer.nvim', opts = { ensure_installed = { 'elixir-ls' } } },
   {
     'neovim/nvim-lspconfig',
     config = function()
