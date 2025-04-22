@@ -1,9 +1,5 @@
 return {
-  {
-    'williamboman/mason.nvim',
-    opts = { ensure_installed = { 'elixir-ls' } },
-  },
-  { 'WhoIsSethDaniel/mason-tool-installer.nvim', opts = { ensure_installed = { 'elixir-ls' } } },
+  { 'williamboman/mason-lspconfig.nvim', opts = { ensure_installed = { 'elixirls' }, automatic_installation = true } },
   {
     'neovim/nvim-lspconfig',
     config = function()
