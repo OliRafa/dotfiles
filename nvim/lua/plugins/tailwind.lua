@@ -1,5 +1,4 @@
 return {
-  { 'WhoIsSethDaniel/mason-tool-installer.nvim', opts = { ensure_installed = { 'tailwindcss' } } },
   {
     'neovim/nvim-lspconfig',
     opts = {

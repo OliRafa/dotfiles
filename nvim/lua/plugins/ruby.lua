@@ -1,20 +1,7 @@
-if lazyvim_docs then
-  -- LSP Server to use for Ruby.
-  -- Set to "solargraph" to use solargraph instead of ruby_lsp.
-  vim.g.lazyvim_ruby_lsp = 'ruby_lsp'
-  vim.g.lazyvim_ruby_formatter = 'rubocop'
-end
-
 local lsp = vim.g.lazyvim_ruby_lsp or 'ruby_lsp'
 local formatter = vim.g.lazyvim_ruby_formatter or 'rubocop'
 
 return {
-  recommended = function()
-    return LazyVim.extras.wants {
-      ft = 'ruby',
-      root = 'Gemfile',
-    }
-  end,
   { 'tpope/vim-rails' },
   {
     'nvim-treesitter/nvim-treesitter',
@@ -47,6 +34,7 @@ return {
         },
       },
     },
+    ft = 'ruby',
   },
   {
     'williamboman/mason.nvim',

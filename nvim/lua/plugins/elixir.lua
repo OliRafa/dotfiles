@@ -1,7 +1,11 @@
 return {
-  { 'williamboman/mason-lspconfig.nvim', opts = { ensure_installed = { 'elixirls' }, automatic_installation = true } },
   {
     'neovim/nvim-lspconfig',
+    opts = {
+      servers = {
+        elixirls = {},
+      },
+    },
     config = function()
       local lspconfig = require 'lspconfig'
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
