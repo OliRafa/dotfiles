@@ -1,60 +1,120 @@
 return {
-  recommended = function()
-    return LazyVim.extras.wants {
-      root = {
-        'tailwind.config.js',
-        'tailwind.config.cjs',
-        'tailwind.config.mjs',
-        'tailwind.config.ts',
-        'postcss.config.js',
-        'postcss.config.cjs',
-        'postcss.config.mjs',
-        'postcss.config.ts',
-      },
-    }
-  end,
   { 'WhoIsSethDaniel/mason-tool-installer.nvim', opts = { ensure_installed = { 'tailwindcss' } } },
   {
     'neovim/nvim-lspconfig',
     opts = {
       servers = {
         tailwindcss = {
-          -- exclude a filetype from the default_config
-          filetypes_exclude = { 'markdown' },
-          -- add additional filetypes to the default_config
-          filetypes_include = {},
-          -- to fully override the default_config, change the below
-          -- filetypes = {}
-        },
-      },
-      setup = {
-        tailwindcss = function(_, opts)
-          local tw = LazyVim.lsp.get_raw_config 'tailwindcss'
-          opts.filetypes = opts.filetypes or {}
-
-          -- Add default filetypes
-          vim.list_extend(opts.filetypes, tw.default_config.filetypes)
-
-          -- Remove excluded filetypes
-          --- @param ft string
-          opts.filetypes = vim.tbl_filter(function(ft)
-            return not vim.tbl_contains(opts.filetypes_exclude or {}, ft)
-          end, opts.filetypes)
-
-          -- Additional settings for Phoenix projects
-          opts.settings = {
+          filetypes = {
+            -- html
+            'aspnetcorerazor',
+            'astro',
+            'astro-markdown',
+            'blade',
+            'clojure',
+            'django-html',
+            'htmldjango',
+            'edge',
+            'eelixir', -- vim ft
+            'elixir',
+            'ejs',
+            'erb',
+            'eruby', -- vim ft
+            'gohtml',
+            'gohtmltmpl',
+            'haml',
+            'handlebars',
+            'hbs',
+            'html',
+            'htmlangular',
+            'html-eex',
+            'heex',
+            'jade',
+            'leaf',
+            'liquid',
+            'markdown',
+            'mdx',
+            'mustache',
+            'njk',
+            'nunjucks',
+            'php',
+            'razor',
+            'slim',
+            'twig',
+            -- css
+            'css',
+            'less',
+            'postcss',
+            'sass',
+            'scss',
+            'stylus',
+            'sugarss',
+            -- js
+            'javascript',
+            'javascriptreact',
+            'reason',
+            'rescript',
+            'typescript',
+            'typescriptreact',
+            -- mixed
+            'vue',
+            'svelte',
+            'templ',
+          },
+          settings = {
             tailwindCSS = {
+              validate = true,
+              lint = {
+                cssConflict = 'warning',
+                invalidApply = 'error',
+                invalidScreen = 'error',
+                invalidVariant = 'error',
+                invalidConfigPath = 'error',
+                invalidTailwindDirective = 'error',
+                recommendedVariantOrder = 'warning',
+              },
+              classAttributes = {
+                'class',
+                'className',
+                'class:list',
+                'classList',
+                'ngClass',
+              },
               includeLanguages = {
-                elixir = 'html-eex',
                 eelixir = 'html-eex',
-                heex = 'html-eex',
+                eruby = 'erb',
+                templ = 'html',
+                htmlangular = 'html',
               },
             },
-          }
-
-          -- Add additional filetypes
-          vim.list_extend(opts.filetypes, opts.filetypes_include or {})
-        end,
+          },
+          on_new_config = function(new_config)
+            if not new_config.settings then
+              new_config.settings = {}
+            end
+            if not new_config.settings.editor then
+              new_config.settings.editor = {}
+            end
+            if not new_config.settings.editor.tabSize then
+              -- set tab size for hover
+              new_config.settings.editor.tabSize = vim.lsp.util.get_effective_tabstop()
+            end
+          end,
+          root_dir = function(fname)
+            local root_file = {
+              'tailwind.config.js',
+              'tailwind.config.cjs',
+              'tailwind.config.mjs',
+              'tailwind.config.ts',
+              'postcss.config.js',
+              'postcss.config.cjs',
+              'postcss.config.mjs',
+              'postcss.config.ts',
+            }
+            root_file = util.insert_package_json(root_file, 'tailwindcss', fname)
+            return util.root_pattern(unpack(root_file))(fname)
+          end,
+        },
       },
     },
   },
