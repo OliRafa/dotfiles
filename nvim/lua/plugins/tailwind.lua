@@ -16,18 +16,11 @@ return {
       'nvim-telescope/telescope.nvim',
       'neovim/nvim-lspconfig',
     },
-    opts = {
-      server = {
-        root_dir = function(fname)
-          return vim.fn.getcwd()
-        end,
-      },
-    },
+    opts = {},
   },
   {
     'hrsh7th/nvim-cmp',
     dependencies = {
-      'tailwind-tools',
       { 'roobert/tailwindcss-colorizer-cmp.nvim', opts = {} },
     },
     opts = function(_, opts)
