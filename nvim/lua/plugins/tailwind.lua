@@ -16,7 +16,13 @@ return {
       'nvim-telescope/telescope.nvim',
       'neovim/nvim-lspconfig',
     },
-    opts = {}, -- your configuration
+    opts = {
+      server = {
+        root_dir = function(fname)
+          return vim.fn.getcwd()
+        end,
+      },
+    },
   },
   {
     'hrsh7th/nvim-cmp',
