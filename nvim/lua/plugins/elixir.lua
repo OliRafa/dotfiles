@@ -15,6 +15,11 @@ return {
         capabilities = capabilities,
       }
     end,
+    keys = {
+      { '<leader>fp', '<cmd>ElixirFromPipe<CR>', desc = 'Elixir: From Pipe' },
+      { '<leader>tp', '<cmd>ElixirToPipe<CR>', desc = 'Elixir: To Pipe' },
+      { '<leader>em', '<cmd>ElixirExpandMacro<CR>', desc = 'Elixir: Expand Macro' },
+    },
   },
   {
     'nvim-treesitter/nvim-treesitter',
@@ -84,22 +89,8 @@ return {
 
       elixir.setup {
         nextls = { enable = false },
-        elixirls = {
-          enable = true,
-          cmd = 'elixir-ls',
-          settings = elixirls.settings {
-            dialyzerEnabled = false,
-            enableTestLenses = false,
-          },
-          on_attach = function(client, bufnr)
-            vim.keymap.set('n', '<space>fp', ':ElixirFromPipe<cr>', { buffer = true, noremap = true, desc = 'From Pipe' })
-            vim.keymap.set('n', '<space>tp', ':ElixirToPipe<cr>', { buffer = true, noremap = true, desc = 'To Pipe' })
-            vim.keymap.set('v', '<space>em', ':ElixirExpandMacro<cr>', { buffer = true, noremap = true, desc = 'Expand Macro' })
-          end,
-        },
-        projectionist = {
-          enable = false,
-        },
+        elixirls = { enable = false },
+        projectionist = { enable = false },
       }
     end,
     dependencies = {
