@@ -23,7 +23,7 @@ return {
       direction = 'horizontal',
     },
     keys = {
-      { '<leader>tt', '<cmd>ToggleTerm<cr>', desc = 'Toggle Terminal' },
+      { '<C-t>', '<cmd>ToggleTerm<cr>', desc = 'Toggle Terminal' },
     },
   },
 }
