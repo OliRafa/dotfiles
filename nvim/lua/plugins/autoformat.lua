@@ -36,7 +36,7 @@ return {
         json = { 'jq' },
         lua = { 'stylua' },
         markdown = { 'markdownlint' },
-        python = { 'isort', 'black' },
+        python = { 'ruff_fix', 'ruff_format', 'ruff_organize_imports' },
         typescript = { 'prettierd', 'prettier', stop_after_first = true },
         yaml = { 'yamlfix' },
       },
