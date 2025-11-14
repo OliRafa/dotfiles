@@ -29,7 +29,7 @@ source $ZSH/oh-my-zsh.sh
 HISTSIZE="10000"
 SAVEHIST="10000"
 
-HISTFILE="~/.zsh_history"
+HISTFILE="$HOME/.zsh_history"
 
 setopt HIST_FCNTL_LOCK
 
