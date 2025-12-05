@@ -6,7 +6,7 @@ co = "checkout"
 st = "status"
 
 [core]
-pager = "/usr/bin/delta"
+pager = "delta"
 
 [delta]
 line-numbers = true
@@ -23,7 +23,7 @@ program = "/usr/bin/gpg"
 defaultBranch = "main"
 
 [interactive]
-diffFilter = "/usr/bin/delta --color-only"
+diffFilter = "delta --color-only"
 
 [push]
 autoSetupRemote = true
