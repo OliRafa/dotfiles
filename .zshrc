@@ -66,8 +66,16 @@ if [[ $options[zle] = on ]]; then
   source <(fzf --zsh)
 fi
 
+# We need to initialize the transient prompt theme before initializing Starship
+source $ZSH_CUSTOM/themes/zsh-transient-prompt/transient-prompt.zsh-theme
+
 # Initialize starship prompt
 eval "$(starship init zsh)"
+
+# After initializing Starship, we can define the env vars for transient prompt
+TRANSIENT_PROMPT_PROMPT='$(starship prompt --terminal-width="$COLUMNS" --keymap="${KEYMAP:-}" --status="$STARSHIP_CMD_STATUS" --pipestatus="${STARSHIP_PIPE_STATUS[*]}" --cmd-duration="${STARSHIP_DURATION:-}" --jobs="$STARSHIP_JOBS_COUNT")'
+TRANSIENT_PROMPT_RPROMPT='$(starship prompt --right --terminal-width="$COLUMNS" --keymap="${KEYMAP:-}" --status="$STARSHIP_CMD_STATUS" --pipestatus="${STARSHIP_PIPE_STATUS[*]}" --cmd-duration="${STARSHIP_DURATION:-}" --jobs="$STARSHIP_JOBS_COUNT")'
+TRANSIENT_PROMPT_TRANSIENT_PROMPT='$(starship module character)'
 
 # Initialize zoxide
 eval "$(zoxide init zsh)"
@@ -85,10 +93,6 @@ function cd {
     z "$@"
   fi
 }
-
-if [[ $TERM != "dumb" ]]; then
-  eval "$(starship init zsh)"
-fi
 
 if test -n "$KITTY_INSTALLATION_DIR"; then
   export KITTY_SHELL_INTEGRATION="no-rc"
@@ -117,3 +121,20 @@ alias -- ls='eza --icons'
 alias -- lt='eza --tree --icons'
 alias -- ssh='kitten ssh'
 
+if [[ $(uname) == "Darwin" ]]; then
+  # CRITICAL: Ensure Nix binaries are in PATH
+  export PATH="$HOME/.nix-profile/bin:$HOME/.local/bin:$PATH"
+
+  # Source Nix daemon script if it exists (for multi-user installs)
+  if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+  fi
+
+  alias -- devbup='devcontainer build --workspace-folder . && devup'
+  alias -- devin='devcontainer exec --workspace-folder . nvim .'
+  alias -- devsh='devcontainer exec --workspace-folder . zsh'
+  alias -- devup='devcontainer up --workspace-folder . && devin'
+  alias -- dr='sudo darwin-rebuild switch --flake /Users/rafael/Documents/home-servers-setup/roles/nix/files'
+  alias -- hm='home-manager switch --flake ~/.dotfiles/home-manager#main'
+  alias -- usbimager='sudo /Applications/USBImager.app/Contents/MacOS/usbimager'
+fi
