@@ -87,7 +87,7 @@ function cd {
 }
 
 if [[ $TERM != "dumb" ]]; then
-  eval "$(/usr/bin/starship init zsh)"
+  eval "$(starship init zsh)"
 fi
 
 if test -n "$KITTY_INSTALLATION_DIR"; then
