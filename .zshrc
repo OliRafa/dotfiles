@@ -63,7 +63,7 @@ done
 unset opt disabled_opts
 
 if [[ $options[zle] = on ]]; then
-  source <(/usr/bin/fzf --zsh)
+  source <(fzf --zsh)
 fi
 
 # Initialize starship prompt
