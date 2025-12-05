@@ -20,7 +20,17 @@ fi
 typeset -U path cdpath fpath manpath
 # oh-my-zsh extra settings for plugins
 export ZSH="$HOME/.oh-my-zsh"
-plugins=(git docker pip python sudo command-not-found colored-man-pages extract)
+plugins=(
+  colored-man-pages
+  command-not-found
+  docker
+  extract
+  git
+  pip
+  python
+  sudo
+  zsh-autosuggestions
+)
 
 ZSH_THEME="robbyrussell"
 source $ZSH/oh-my-zsh.sh
