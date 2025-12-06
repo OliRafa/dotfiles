@@ -1,10 +1,4 @@
 return {
-  recommended = function()
-    return LazyVim.extras.wants {
-      ft = 'dockerfile',
-      root = { 'Dockerfile', 'docker-compose.yml', 'compose.yml', 'docker-compose.yaml', 'compose.yaml' },
-    }
-  end,
   {
     'nvim-treesitter/nvim-treesitter',
     opts = { ensure_installed = { 'dockerfile' } },
@@ -26,15 +20,6 @@ return {
     opts = {
       linters_by_ft = {
         dockerfile = { 'hadolint' },
-      },
-    },
-  },
-  {
-    'neovim/nvim-lspconfig',
-    opts = {
-      servers = {
-        dockerls = {},
-        docker_compose_language_service = {},
       },
     },
   },

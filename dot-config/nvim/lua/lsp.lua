@@ -14,4 +14,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'LSP: Disable hover capability from Ruff',
 })
 
-vim.lsp.enable { 'basedpyright', 'ruff' }
+vim.lsp.enable {
+  'ansiblels',
+  'basedpyright',
+  'dockerls',
+  'docker_compose_language_service',
+  'marksman',
+  'ruff',
+  -- For TOML
+  'taplo',
+}

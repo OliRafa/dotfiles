@@ -189,9 +189,15 @@ return {
       local ensure_installed = vim.tbl_keys(opts.servers or {})
       vim.list_extend(ensure_installed, {
         'ansible-lint',
+        'ansiblels',
         'basedpyright',
-        'stylua', -- Used to format Lua code
+        'dockerls',
+        'docker_compose_language_service',
+        'marksman',
         'ruff',
+        'stylua', -- Used to format Lua code
+        -- For TOML
+        'taplo',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
