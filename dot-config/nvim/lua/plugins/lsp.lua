@@ -13,6 +13,16 @@ return {
     },
   },
   {
+    'mason-org/mason-lspconfig.nvim',
+    opts = {
+      ensure_installed = { 'lua_ls' },
+    },
+    dependencies = {
+      { 'mason-org/mason.nvim', opts = {} },
+      'neovim/nvim-lspconfig',
+    },
+  },
+  {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -195,6 +205,7 @@ return {
         'docker_compose_language_service',
         'marksman',
         'ruff',
+        'sqlfluff',
         'stylua', -- Used to format Lua code
         -- For TOML
         'taplo',
