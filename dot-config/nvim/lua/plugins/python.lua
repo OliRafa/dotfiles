@@ -6,7 +6,7 @@ return {
     },
     lazy = true,
     config = function()
-      require('dap-python').setup 'python'
+      require('dap-python').setup 'debugpy-adapter'
     end,
     keys = {
       {
