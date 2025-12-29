@@ -29,10 +29,6 @@ return {
     },
   },
   {
-    'williamboman/mason.nvim',
-    opts = { ensure_installed = { 'markdownlint-cli2', 'markdown-toc' } },
-  },
-  {
     'nvimtools/none-ls.nvim',
     optional = true,
     opts = function(_, opts)
