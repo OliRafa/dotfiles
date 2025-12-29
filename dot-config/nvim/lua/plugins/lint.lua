@@ -21,6 +21,7 @@ return {
       end, { desc = 'Trigger linting for current file' })
 
       lint.linters.sqlfluff.args = { 'lint', '--format=json', '--dialect=databricks', '-' }
+      lint.linters.markdownlint.args = { '--stdin', '--disable', 'MD033', '--' }
     end,
   },
 }
