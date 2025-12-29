@@ -71,9 +71,18 @@ return {
       vim.cmd [[do FileType]]
     end,
   },
-
+  {
+    'folke/snacks.nvim',
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
+    opts = {
+      toggle = { enabled = true },
+    },
+  },
   {
     'MeanderingProgrammer/render-markdown.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim', 'folke/snacks.nvim' },
     opts = {
       code = {
         sign = false,
@@ -93,17 +102,8 @@ return {
       require('render-markdown').setup(opts)
       Snacks.toggle({
         name = 'Render Markdown',
-        get = function()
-          return require('render-markdown.state').enabled
-        end,
-        set = function(enabled)
-          local m = require 'render-markdown'
-          if enabled then
-            m.enable()
-          else
-            m.disable()
-          end
-        end,
+        get = require('render-markdown').get,
+        set = require('render-markdown').set,
       }):map '<leader>um'
     end,
   },
