@@ -102,4 +102,24 @@ return {
     end,
     render_modes = { 'n', 'c', 't' },
   },
+  {
+    'hedyhli/markdown-toc.nvim',
+    ft = 'markdown',
+    cmd = { 'Mtoc' },
+    keys = {
+      {
+        '<leader>mt',
+        ft = 'markdown',
+        '<cmd>Mtoc<cr>',
+        desc = 'Create Markdown Table of Contents',
+      },
+      {
+        '<leader>mtd',
+        ft = 'markdown',
+        '<cmd>Mtoc r<cr>',
+        desc = 'Delete Markdown Table of Contents',
+      },
+    },
+    opts = {},
+  },
 }
