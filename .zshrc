@@ -80,6 +80,9 @@ TRANSIENT_PROMPT_TRANSIENT_PROMPT='$(starship module character)'
 # Initialize zoxide
 eval "$(zoxide init zsh)"
 
+# Loading functions in functions base folder
+for f in ~/.zsh/functions/*; do source "$f"; done
+
 # Custom functions
 mkcd() {
   mkdir -p "$1" && cd "$1"
@@ -101,25 +104,8 @@ if test -n "$KITTY_INSTALLATION_DIR"; then
   unfunction kitty-integration
 fi
 
-alias -- ..='cd ..'
-alias -- ...='cd ../..'
-alias -- ....='cd ../../..'
-alias -- c=clear
-alias -- cat='bat --style=auto'
-alias -- cd=z
-alias -- df='df -h'
-alias -- find=fd
-alias -- g=git
-alias -- gcam='git commit -am'
-alias -- gcm='git commit -m'
-alias -- gco='git checkout'
-alias -- grep=rg
-alias -- gst='git status'
-alias -- la='eza -la --icons'
-alias -- ll='eza -la --icons'
-alias -- ls='eza --icons'
-alias -- lt='eza --tree --icons'
-alias -- ssh='kitten ssh'
+# Load aliases
+source ~/.zsh/aliases
 
 if [[ $(uname) == "Darwin" ]]; then
   # CRITICAL: Ensure Nix binaries are in PATH
@@ -130,10 +116,6 @@ if [[ $(uname) == "Darwin" ]]; then
     . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
   fi
 
-  alias -- devbup='devcontainer build --workspace-folder . && devup'
-  alias -- devin='devcontainer exec --workspace-folder . nvim .'
-  alias -- devsh='devcontainer exec --workspace-folder . zsh'
-  alias -- devup='devcontainer up --workspace-folder . && devin'
   alias -- dr='sudo darwin-rebuild switch --flake /Users/rafael/Documents/home-servers-setup/roles/nix/files'
   alias -- hm='home-manager switch --flake ~/.dotfiles/home-manager#main'
   alias -- usbimager='sudo /Applications/USBImager.app/Contents/MacOS/usbimager'

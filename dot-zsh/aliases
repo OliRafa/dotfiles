@@ -1,0 +1,25 @@
+alias -- ..='cd ..'
+alias -- ...='cd ../..'
+alias -- ....='cd ../../..'
+alias -- c=clear
+alias -- cat='bat --style=auto'
+alias -- cd=z
+alias -- devbup='devcontainer build --workspace-folder . && devup'
+alias -- devin='devcontainer exec --workspace-folder . nvim .'
+alias -- devsh='devcontainer exec --workspace-folder . zsh'
+alias -- devup='devcontainer up --workspace-folder . && devin'
+alias -- df='df -h'
+alias -- find=fd
+alias -- g=git
+alias -- gcam='git commit -am'
+alias -- gcm='git commit -m'
+alias -- gco='git checkout'
+alias -- grep=rg
+alias -- gst='git status'
+alias -- la='eza -la --icons'
+alias -- ll='eza -la --icons'
+alias -- ls='eza --icons'
+alias -- lt='eza --tree --icons'
+alias -- ssh='kitten ssh'
+alias -- tdev='tmux new-session -A -s Work'
+alias -- tai='tdev \; send-keys "tdl opencode" C-m'
