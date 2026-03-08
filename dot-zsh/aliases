@@ -20,6 +20,9 @@ alias -- la='eza -la --icons'
 alias -- ll='eza -la --icons'
 alias -- ls='eza --icons'
 alias -- lt='eza --tree --icons'
-alias -- ssh='kitten ssh'
 alias -- tdev='tmux new-session -A -s Work'
 alias -- tai='tdev \; send-keys "tdl opencode" C-m'
+
+if [[ "$TERM" == "xterm-kitty" ]]; then
+  alias -- ssh='kitten ssh'
+fi
