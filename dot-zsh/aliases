@@ -9,6 +9,7 @@ alias -- devin='devcontainer exec --workspace-folder . nvim .'
 alias -- devsh='devcontainer exec --workspace-folder . zsh'
 alias -- devup='devcontainer up --workspace-folder .'
 alias -- devcode='devcontainer exec --workspace-folder . opencode'
+alias -- devcodex='devcontainer exec --workspace-folder . codex'
 alias -- df='df -h'
 alias -- find=fd
 alias -- g=git

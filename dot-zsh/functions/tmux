@@ -37,12 +37,15 @@ tdl() {
   tmux select-pane -t "$editor_pane"
 }
 
-# Create a Tmux Dev Layout with editor, opencode, a second ai if given, and terminal
-# Usage: devai <c|cx|codex|other_ai>
+# Create a Tmux Dev Layout with editor, an AI (or a second AI if given), and terminal
+# If any AI isn't given, start Opencode by default
+# Usage: devai [<code|codex|other_ai>] [<second_ai>]
 devai() {
   local current_dir="${PWD}"
   local session="$(basename "$current_dir")"
-  local ai2="$1"
+  # If first argument (AI) is passed, use it; otherwise default to "devcode"
+  local ai="${1:-code}"
+  local ai2="$2"
 
   # Get terminal size
   local cols=$(tput cols)
@@ -72,7 +75,7 @@ devai() {
 
     # Run programs
     tmux send-keys -t "$editor_pane" "devin" C-m
-    tmux send-keys -t "$ai_pane" "devcode" C-m
+    tmux send-keys -t "$ai_pane" "dev$ai" C-m
     tmux send-keys -t "$shell_pane" "devsh" C-m
 
     # Focus editor
