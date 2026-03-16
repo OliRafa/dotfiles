@@ -80,6 +80,9 @@ TRANSIENT_PROMPT_TRANSIENT_PROMPT='$(starship module character)'
 # Initialize zoxide
 eval "$(zoxide init zsh)"
 
+# Load aliases
+source ~/.zsh/aliases
+
 # Loading functions in functions base folder
 for f in ~/.zsh/functions/*; do source "$f"; done
 
@@ -103,9 +106,6 @@ if test -n "$KITTY_INSTALLATION_DIR"; then
   kitty-integration
   unfunction kitty-integration
 fi
-
-# Load aliases
-source ~/.zsh/aliases
 
 if [[ $(uname) == "Darwin" ]]; then
   # CRITICAL: Ensure Nix binaries are in PATH

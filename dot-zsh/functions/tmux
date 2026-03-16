@@ -37,6 +37,27 @@ tdl() {
   tmux select-pane -t "$editor_pane"
 }
 
+# Create a Tmux Dev Layout with editor, ai, and terminal
+# Usage: devai <c|cx|codex|other_ai> [<second_ai>]
+devai() {
+  local current_dir="${PWD}"
+  local session="$(basename "$current_dir")"
+  local ai2="$1"
+
+  # Run devup
+  devup
+
+# Create session if missing
+  if ! tmux has-session -t "$session" 2>/dev/null; then
+    tmux new-session -d -s "$session" -c "$PWD"
+    # Run the layout script inside tmux
+    tmux run-shell -t "$session" "~/.config/tmux/devai_layout.sh '$ai2'"
+  fi
+
+  # Attach
+  tmux attach -t "$session"
+}
+
 # Create multiple tdl windows with one per subdirectory in the current directory
 # Usage: tdlm <c|cx|codex|other_ai> [<second_ai>]
 tdlm() {
