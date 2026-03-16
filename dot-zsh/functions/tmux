@@ -37,21 +37,46 @@ tdl() {
   tmux select-pane -t "$editor_pane"
 }
 
-# Create a Tmux Dev Layout with editor, ai, and terminal
-# Usage: devai <c|cx|codex|other_ai> [<second_ai>]
+# Create a Tmux Dev Layout with editor, opencode, a second ai if given, and terminal
+# Usage: devai <c|cx|codex|other_ai>
 devai() {
   local current_dir="${PWD}"
   local session="$(basename "$current_dir")"
   local ai2="$1"
+
+  # Get terminal size
+  local cols=$(tput cols)
+  local lines=$(tput lines)
 
   # Run devup
   devup
 
 # Create session if missing
   if ! tmux has-session -t "$session" 2>/dev/null; then
-    tmux new-session -d -s "$session" -c "$PWD"
-    # Run the layout script inside tmux
-    tmux run-shell -t "$session" "~/.config/tmux/devai_layout.sh '$ai2'"
+    # Create session with initial size matching current terminal
+    tmux new-session -d -s "$session" -c "$PWD" -x "$cols" -y "$lines"
+    # Get first pane (editor)
+    editor_pane=$(tmux display-message -p "#{pane_id}")
+
+    # Bottom shell pane (5 lines)
+    shell_pane=$(tmux split-window -v -l 15% -t "$editor_pane" -c "$current_dir" -P -F "#{pane_id}")
+
+    # Horizontal split → AI right
+    ai_pane=$(tmux split-window -h -l 30% -t "$editor_pane" -c "$current_dir" -P -F "#{pane_id}")
+
+    # Optional second AI
+    if [[ -n "$ai2" ]]; then
+      ai2_pane=$(tmux split-window -v -p 50% -t "$ai_pane" -c "$current_dir" -P -F "#{pane_id}")
+      tmux send-keys -t "$ai2_pane" "$ai2" C-m
+    fi
+
+    # Run programs
+    tmux send-keys -t "$editor_pane" "devin" C-m
+    tmux send-keys -t "$ai_pane" "devcode" C-m
+    tmux send-keys -t "$shell_pane" "devsh" C-m
+
+    # Focus editor
+    tmux select-pane -t "$editor_pane"
   fi
 
   # Attach
