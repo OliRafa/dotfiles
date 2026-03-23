@@ -1,31 +1,7 @@
 return {
   {
-    'neovim/nvim-lspconfig',
-    opts = {
-      servers = {
-        elixirls = {},
-      },
-    },
-    config = function()
-      local lspconfig = require 'lspconfig'
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      lspconfig.elixirls.setup {
-        cmd = { 'elixir-ls' },
-        -- set default capabilities for cmp lsp completion source
-        capabilities = capabilities,
-      }
-    end,
-    keys = {
-      { '<leader>fp', '<cmd>ElixirFromPipe<CR>', desc = 'Elixir: From Pipe' },
-      { '<leader>tp', '<cmd>ElixirToPipe<CR>', desc = 'Elixir: To Pipe' },
-      { '<leader>em', '<cmd>ElixirExpandMacro<CR>', desc = 'Elixir: Expand Macro' },
-    },
-  },
-  {
     'nvim-treesitter/nvim-treesitter',
     opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { 'elixir', 'heex', 'eex' })
       vim.treesitter.language.register('markdown', 'livebook')
     end,
   },
@@ -85,7 +61,6 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       local elixir = require 'elixir'
-      local elixirls = require 'elixir.elixirls'
 
       elixir.setup {
         nextls = { enable = false },

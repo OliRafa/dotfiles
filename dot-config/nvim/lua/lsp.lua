@@ -19,6 +19,7 @@ vim.lsp.enable {
   'basedpyright',
   'dockerls',
   'docker_compose_language_service',
+  'expert',
   'marksman',
   'ruff',
   -- For TOML

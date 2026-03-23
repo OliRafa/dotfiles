@@ -203,6 +203,7 @@ return {
         'basedpyright',
         'dockerls',
         'docker_compose_language_service',
+        'expert',
         'markdown-toc',
         'markdownlint',
         'markdownlint-cli2',
