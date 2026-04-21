@@ -69,6 +69,7 @@ fi
 # We need to initialize the transient prompt theme before initializing Starship
 source $ZSH_CUSTOM/themes/zsh-transient-prompt/transient-prompt.zsh-theme
 
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
 # Initialize starship prompt
 eval "$(starship init zsh)"
 
