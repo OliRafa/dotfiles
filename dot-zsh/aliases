@@ -18,6 +18,7 @@ alias -- gcm='git commit -m'
 alias -- gco='git checkout'
 alias -- grep=rg
 alias -- gst='git status'
+alias -- k='kubectl'
 alias -- la='eza -la --icons'
 alias -- ll='eza -la --icons'
 alias -- ls='eza --icons'
