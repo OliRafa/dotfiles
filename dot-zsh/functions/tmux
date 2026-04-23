@@ -1,5 +1,46 @@
 # Create a Tmux Dev Layout with editor, ai, and terminal
 # Usage: tdl <c|cx|codex|other_ai> [<second_ai>]
+localai() {
+  local current_dir="${PWD}"
+  local session="$(basename "$current_dir")"
+  # If first argument (AI) is passed, use it; otherwise default to "devcode"
+  local ai="${1:-claude}"
+  local ai2="$2"
+
+  # Get terminal size
+  local cols=$(tput cols)
+  local lines=$(tput lines)
+
+# Create session if missing
+  if ! tmux has-session -t "$session" 2>/dev/null; then
+    # Create session with initial size matching current terminal
+    tmux new-session -d -s "$session" -c "$PWD" -x "$cols" -y "$lines"
+    # Get first pane (editor)
+    editor_pane=$(tmux display-message -p "#{pane_id}")
+
+    # Bottom shell pane (5 lines)
+    shell_pane=$(tmux split-window -v -l 15% -t "$editor_pane" -c "$current_dir" -P -F "#{pane_id}")
+
+    # Horizontal split → AI right
+    ai_pane=$(tmux split-window -h -l 30% -t "$editor_pane" -c "$current_dir" -P -F "#{pane_id}")
+
+    # Optional second AI
+    if [[ -n "$ai2" ]]; then
+      ai2_pane=$(tmux split-window -v -p 50% -t "$ai_pane" -c "$current_dir" -P -F "#{pane_id}")
+      tmux send-keys -t "$ai2_pane" "$ai2" C-m
+    fi
+
+    # Run programs
+    tmux send-keys -t "$editor_pane" "nvim ." C-m
+    tmux send-keys -t "$ai_pane" "$ai" C-m
+
+    # Focus editor
+    tmux select-pane -t "$editor_pane"
+  fi
+
+  # Attach
+  tmux attach -t "$session"
+}
 tdl() {
   [[ -z $1 ]] && { echo "Usage: tdl <c|cx|codex|other_ai> [<second_ai>]"; return 1; }
   [[ -z $TMUX ]] && { echo "You must start tmux to use tdl."; return 1; }
@@ -44,7 +85,7 @@ devai() {
   local current_dir="${PWD}"
   local session="$(basename "$current_dir")"
   # If first argument (AI) is passed, use it; otherwise default to "devcode"
-  local ai="${1:-code}"
+  local ai="${1:-claude}"
   local ai2="$2"
 
   # Get terminal size
