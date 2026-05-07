@@ -92,17 +92,3 @@ if test -n "$KITTY_INSTALLATION_DIR"; then
   kitty-integration
   unfunction kitty-integration
 fi
-
-if [[ $(uname) == "Darwin" ]]; then
-  # CRITICAL: Ensure Nix binaries are in PATH
-  export PATH="$HOME/.nix-profile/bin:$HOME/.local/bin:$PATH"
-
-  # Source Nix daemon script if it exists (for multi-user installs)
-  if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-  fi
-
-  alias -- dr='sudo darwin-rebuild switch --flake /Users/rafael/Documents/home-servers-setup/roles/nix/files'
-  alias -- hm='home-manager switch --flake ~/.dotfiles/home-manager#main'
-  alias -- usbimager='sudo /Applications/USBImager.app/Contents/MacOS/usbimager'
-fi
