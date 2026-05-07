@@ -18,22 +18,6 @@ fi
 # Add your own customizations below
 
 typeset -U path cdpath fpath manpath
-# oh-my-zsh extra settings for plugins
-export ZSH="$HOME/.oh-my-zsh"
-plugins=(
-  colored-man-pages
-  command-not-found
-  docker
-  extract
-  git
-  pip
-  python
-  sudo
-  zsh-autosuggestions
-)
-
-ZSH_THEME="robbyrussell"
-source $ZSH/oh-my-zsh.sh
 
 # History options should be set in .zshrc and after oh-my-zsh sourcing.
 HISTSIZE="10000"
@@ -66,8 +50,9 @@ if [[ $options[zle] = on ]]; then
   source <(fzf --zsh)
 fi
 
+source /home/linuxbrew/.linuxbrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # We need to initialize the transient prompt theme before initializing Starship
-source $ZSH_CUSTOM/themes/zsh-transient-prompt/transient-prompt.zsh-theme
+source /home/linuxbrew/.linuxbrew/share/zsh-transient-prompt/transient-prompt.zsh-theme
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
 # Initialize starship prompt
