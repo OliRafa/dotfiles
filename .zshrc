@@ -50,6 +50,14 @@ if [[ $options[zle] = on ]]; then
   source <(fzf --zsh)
 fi
 
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+  autoload -Uz compinit
+  compinit
+fi
+
 source /home/linuxbrew/.linuxbrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # We need to initialize the transient prompt theme before initializing Starship
 source /home/linuxbrew/.linuxbrew/share/zsh-transient-prompt/transient-prompt.zsh-theme
