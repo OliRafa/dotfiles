@@ -1,3 +1,7 @@
+# Initialize Homebrew first so PATH is set for both interactive and
+# non-interactive shells (nvim subprocesses, scripts, etc.).
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -50,7 +54,6 @@ if [[ $options[zle] = on ]]; then
   source <(fzf --zsh)
 fi
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 
@@ -62,7 +65,6 @@ source /home/linuxbrew/.linuxbrew/share/zsh-autosuggestions/zsh-autosuggestions.
 # We need to initialize the transient prompt theme before initializing Starship
 source /home/linuxbrew/.linuxbrew/share/zsh-transient-prompt/transient-prompt.zsh-theme
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
 # Initialize starship prompt
 eval "$(starship init zsh)"
 

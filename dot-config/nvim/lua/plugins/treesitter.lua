@@ -6,7 +6,13 @@ return {
     main = 'nvim-treesitter.config', -- Sets main module to use for opts
     opts = {
       install_dir = vim.fn.stdpath 'data' .. '/site',
-      ensure_installed = {
+    },
+    config = function(_, opts)
+      require('nvim-treesitter.config').setup(opts)
+
+      -- ensure_installed is no longer handled by nvim-treesitter.config.setup(),
+      -- so we install missing parsers explicitly.
+      local ensure_installed = {
         'bash',
         'c',
         'diff',
@@ -22,17 +28,16 @@ return {
         'query',
         'vim',
         'vimdoc',
-      },
-      auto_install = true,
-      sync_install = false,
-      highlight = {
-        enable = true,
-        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-        --  If you are experiencing weird indenting issues, add the language to
-        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
-      },
-      indent = { enable = true, disable = { 'ruby' } },
-    },
+      }
+
+      local installed = require('nvim-treesitter.config').get_installed()
+      local missing = vim.tbl_filter(function(lang)
+        return not vim.list_contains(installed, lang)
+      end, ensure_installed)
+
+      if #missing > 0 then
+        require('nvim-treesitter.install').install(missing)
+      end
+    end,
   },
 }

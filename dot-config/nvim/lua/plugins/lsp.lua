@@ -222,6 +222,11 @@ return {
         automatic_installation = false,
         handlers = {
           function(server_name)
+            -- Elixir LSPs are managed by elixir-tools.nvim (or expert via vim.lsp.enable);
+            -- skip so Mason-installed copies don't auto-attach via this handler.
+            if vim.tbl_contains({ 'lexical', 'elixirls', 'nextls' }, server_name) then
+              return
+            end
             local server = opts.servers[server_name] or {}
             -- This handles overriding only values explicitly passed
             -- by the server configuration above. Useful when disabling
