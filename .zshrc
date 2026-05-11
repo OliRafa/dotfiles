@@ -61,9 +61,9 @@ if type brew &>/dev/null; then
   compinit
 fi
 
-source /home/linuxbrew/.linuxbrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # We need to initialize the transient prompt theme before initializing Starship
-source /home/linuxbrew/.linuxbrew/share/zsh-transient-prompt/transient-prompt.zsh-theme
+source $(brew --prefix)/share/zsh-transient-prompt/transient-prompt.zsh-theme
 
 # Initialize starship prompt
 eval "$(starship init zsh)"
