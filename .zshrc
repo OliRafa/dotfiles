@@ -1,6 +1,10 @@
 # Initialize Homebrew first so PATH is set for both interactive and
 # non-interactive shells (nvim subprocesses, scripts, etc.).
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+if [[ $(uname) == "Darwin" ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+else
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
