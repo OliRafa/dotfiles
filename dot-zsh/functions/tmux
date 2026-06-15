@@ -22,7 +22,7 @@ localai() {
     shell_pane=$(tmux split-window -v -l 15% -t "$editor_pane" -c "$current_dir" -P -F "#{pane_id}")
 
     # Horizontal split → AI right
-    ai_pane=$(tmux split-window -h -l 30% -t "$editor_pane" -c "$current_dir" -P -F "#{pane_id}")
+    ai_pane=$(tmux split-window -h -l 50% -t "$editor_pane" -c "$current_dir" -P -F "#{pane_id}")
 
     # Optional second AI
     if [[ -n "$ai2" ]]; then
@@ -106,7 +106,7 @@ devai() {
     shell_pane=$(tmux split-window -v -l 15% -t "$editor_pane" -c "$current_dir" -P -F "#{pane_id}")
 
     # Horizontal split → AI right
-    ai_pane=$(tmux split-window -h -l 30% -t "$editor_pane" -c "$current_dir" -P -F "#{pane_id}")
+    ai_pane=$(tmux split-window -h -l 50% -t "$editor_pane" -c "$current_dir" -P -F "#{pane_id}")
 
     # Optional second AI
     if [[ -n "$ai2" ]]; then
