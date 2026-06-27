@@ -1,13 +1,12 @@
-# Initialize Homebrew first so PATH is set for both interactive and
-# non-interactive shells (nvim subprocesses, scripts, etc.).
-if [[ $(uname) == "Darwin" ]]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-else
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-fi
+# Homebrew env (PATH, MANPATH, HOMEBREW_*) is initialized in ~/.zshenv so it
+# applies to non-interactive shells too (scripts, nvim subprocesses, jailed
+# `zsh -c`). Do not re-init it here — .zshrc is interactive-only.
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
+
+# Cache brew prefix once (avoids spawning `brew --prefix` repeatedly below).
+brew_prefix="$(brew --prefix 2>/dev/null)"
 
 # Load omarchy-zsh configuration
 if [[ -d /usr/share/omarchy-zsh/conf.d ]]; then
@@ -59,15 +58,17 @@ if [[ $options[zle] = on ]]; then
 fi
 
 if type brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+  FPATH=$brew_prefix/share/zsh-completions:$FPATH
 
   autoload -Uz compinit
   compinit
 fi
 
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+[[ -r $brew_prefix/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && \
+  source $brew_prefix/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # We need to initialize the transient prompt theme before initializing Starship
-source $(brew --prefix)/share/zsh-transient-prompt/transient-prompt.zsh-theme
+[[ -r $brew_prefix/share/zsh-transient-prompt/transient-prompt.zsh-theme ]] && \
+  source $brew_prefix/share/zsh-transient-prompt/transient-prompt.zsh-theme
 
 # Initialize starship prompt
 eval "$(starship init zsh)"
@@ -81,10 +82,10 @@ TRANSIENT_PROMPT_TRANSIENT_PROMPT='$(starship module character)'
 eval "$(zoxide init zsh)"
 
 # Load aliases
-source ~/.zsh/aliases
+[[ -r ~/.zsh/aliases ]] && source ~/.zsh/aliases
 
-# Loading functions in functions base folder
-for f in ~/.zsh/functions/*; do source "$f"; done
+# Loading functions in functions base folder ((N) => no error if dir is empty)
+for f in ~/.zsh/functions/*(N); do source "$f"; done
 
 # Custom functions
 mkcd() {
