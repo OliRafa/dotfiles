@@ -1,0 +1,34 @@
+Host gitlab.com
+  HostName gitlab.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519_gitlab
+  IdentitiesOnly yes
+  PreferredAuthentications publickey
+
+Host github.com
+  PreferredAuthentications publickey
+  IdentityFile ~/.ssh/id_ed25519_github
+
+Host jarvis
+  hostname 192.168.50.6
+  port 56840
+  user jarvis
+  IdentityFile ~/.ssh/id_ed25519_jarvis
+  # IdentityFile ~/.ssh/home_server_id_ed25519_sk
+
+Host ultron
+  hostname 192.168.50.5
+  port 56840
+  user ultron
+  IdentityFile ~/.ssh/home_server_id_ed25519_sk
+
+Host vision
+  hostname 192.168.50.1
+  port 22
+  user vision
+
+Host *
+  IgnoreUnknown AddKeysToAgent,UseKeychain
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
