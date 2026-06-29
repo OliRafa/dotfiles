@@ -116,7 +116,18 @@ devai() {
 
     # Run programs
     tmux send-keys -t "$editor_pane" "devin" C-m
-    tmux send-keys -t "$ai_pane" "dev$ai" C-m
+
+    # AI pane: sandbox with ai-jail if it's available inside the devcontainer.
+    # ai-jail runs in the container too, so probe the container (not the host).
+    local ai_cmd
+    if devcontainer exec --workspace-folder . sh -c 'command -v ai-jail' &>/dev/null; then
+      ai_cmd="devcontainer exec --workspace-folder . ai-jail $ai"
+      [[ "$ai" == claude ]] && ai_cmd+=" --dangerously-skip-permissions"
+    else
+      ai_cmd="dev$ai"
+    fi
+    tmux send-keys -t "$ai_pane" "$ai_cmd" C-m
+
     tmux send-keys -t "$shell_pane" "devsh" C-m
 
     # Focus editor
