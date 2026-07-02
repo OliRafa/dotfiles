@@ -20,10 +20,10 @@ return {
       notify_on_error = false,
       format_on_save = function(bufnr)
         local ft = vim.bo[bufnr].filetype
-        -- Respect the sqlfluff on/off toggle (<leader>L, defined in lint.lua):
-        -- when it's off, skip auto-fixing SQL on save too, not just the
-        -- on-screen diagnostics. Returning nil tells conform not to format.
-        if vim.g.sqlfluff_enabled == false and (ft == 'sql' or ft == 'pgsql') then
+        -- sqlfluff is slow (Python startup + a full fix pass), so it blows past
+        -- a synchronous save timeout on real files. SQL is formatted by
+        -- format_after_save (async) below instead, so skip it on the sync path.
+        if ft == 'sql' or ft == 'pgsql' then
           return
         end
         -- Disable "format_on_save lsp_fallback" for languages that don't
@@ -40,6 +40,18 @@ return {
           timeout_ms = 500,
           lsp_format = lsp_format_opt,
         }
+      end,
+      -- SQL formats asynchronously after the write so a slow sqlfluff run never
+      -- blocks the save or trips the timeout. Gated by the <leader>L toggle
+      -- (lint.lua): turning sqlfluff off also stops fix-on-save.
+      format_after_save = function(bufnr)
+        local ft = vim.bo[bufnr].filetype
+        if (ft == 'sql' or ft == 'pgsql') and vim.g.sqlfluff_enabled ~= false then
+          return {
+            timeout_ms = 5000,
+            lsp_format = 'never',
+          }
+        end
       end,
       formatters = {
         sqlfluff = {
