@@ -122,10 +122,11 @@ devai() {
     local ai_cmd
     if devcontainer exec --workspace-folder . sh -c 'command -v ai-jail' &>/dev/null; then
       ai_cmd="devcontainer exec --workspace-folder . ai-jail $ai"
-      [[ "$ai" == claude ]] && ai_cmd+=" --dangerously-skip-permissions"
     else
       ai_cmd="dev$ai"
     fi
+    # claude always runs with permissions skipped, jailed or not.
+    [[ "$ai" == claude ]] && ai_cmd+=" --dangerously-skip-permissions"
     tmux send-keys -t "$ai_pane" "$ai_cmd" C-m
 
     tmux send-keys -t "$shell_pane" "devsh" C-m
