@@ -19,13 +19,13 @@ Host jarvis
 Host ultron
   hostname 192.168.50.5
   port 56840
-  user ultron
+  user root
   IdentityFile ~/.ssh/home_server_id_ed25519_sk
 
 Host vision
   hostname 192.168.50.1
   port 22
-  user vision
+  user root
 
 Host *
   IgnoreUnknown AddKeysToAgent,UseKeychain
