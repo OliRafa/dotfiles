@@ -113,3 +113,6 @@ Temporary Items
 # iCloud generated files
 *.icloud
 
+
+# Noctalia renders the foot colour theme here on every palette change (foot.ini includes it)
+dot-config/foot/themes/
