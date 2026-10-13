@@ -1,9 +1,10 @@
 [alias]
-br = "branch"
+	br = branch
 cam = "commit -am"
 cm = "commit -m"
-co = "checkout"
-st = "status"
+	co = checkout
+	st = status
+	ci = commit
 
 [core]
 pager = "delta"
@@ -20,7 +21,7 @@ format = "openpgp"
 program = "/usr/bin/gpg"
 
 [init]
-defaultBranch = "main"
+	defaultBranch = main
 
 [interactive]
 diffFilter = "delta --color-only"
@@ -32,3 +33,11 @@ autoSetupRemote = true
 email = "olirafa@proton.me"
 name = "Rafael Augusto de Oliveira"
 
+[credential "https://github.com"]
+	helper = 
+	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
+[pull]
+	rebase = true
