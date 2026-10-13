@@ -97,10 +97,9 @@ devai() {
 
 # Create session if missing
   if ! tmux has-session -t "$session" 2>/dev/null; then
-    # Create session with initial size matching current terminal
-    tmux new-session -d -s "$session" -c "$PWD" -x "$cols" -y "$lines"
-    # Get first pane (editor)
-    editor_pane=$(tmux display-message -p "#{pane_id}")
+    # Create session sized to the current terminal; capture its first pane
+    # (editor) directly so the id is correct even when run from inside tmux.
+    editor_pane=$(tmux new-session -d -s "$session" -c "$PWD" -x "$cols" -y "$lines" -P -F "#{pane_id}")
 
     # Bottom shell pane (5 lines)
     shell_pane=$(tmux split-window -v -l 15% -t "$editor_pane" -c "$current_dir" -P -F "#{pane_id}")
@@ -135,8 +134,12 @@ devai() {
     tmux select-pane -t "$editor_pane"
   fi
 
-  # Attach
-  tmux attach -t "$session"
+  # Attach — or switch, if we're already inside tmux (attach can't nest)
+  if [[ -n $TMUX ]]; then
+    tmux switch-client -t "$session"
+  else
+    tmux attach -t "$session"
+  fi
 }
 
 # Create multiple tdl windows with one per subdirectory in the current directory
