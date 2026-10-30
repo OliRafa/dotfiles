@@ -101,15 +101,13 @@ devai() {
     # (editor) directly so the id is correct even when run from inside tmux.
     editor_pane=$(tmux new-session -d -s "$session" -c "$PWD" -x "$cols" -y "$lines" -P -F "#{pane_id}")
 
-    # Bottom shell pane (5 lines)
-    shell_pane=$(tmux split-window -v -l 15% -t "$editor_pane" -c "$current_dir" -P -F "#{pane_id}")
+    # Three columns side by side: editor | AI | shell (a third each)
+    ai_pane=$(tmux split-window -h -l 67% -t "$editor_pane" -c "$current_dir" -P -F "#{pane_id}")
+    shell_pane=$(tmux split-window -h -l 50% -t "$ai_pane" -c "$current_dir" -P -F "#{pane_id}")
 
-    # Horizontal split → AI right
-    ai_pane=$(tmux split-window -h -l 50% -t "$editor_pane" -c "$current_dir" -P -F "#{pane_id}")
-
-    # Optional second AI
+    # Optional second AI, stacked under the first in the middle column
     if [[ -n "$ai2" ]]; then
-      ai2_pane=$(tmux split-window -v -p 50% -t "$ai_pane" -c "$current_dir" -P -F "#{pane_id}")
+      ai2_pane=$(tmux split-window -v -l 50% -t "$ai_pane" -c "$current_dir" -P -F "#{pane_id}")
       tmux send-keys -t "$ai2_pane" "$ai2" C-m
     fi
 
