@@ -5,7 +5,6 @@ return {
     config = function()
       local lint = require 'lint'
       lint.linters_by_ft = {
-        markdown = { 'markdownlint' },
         sql = { 'sqlfluff' },
       }
       -- When false, sqlfluff is silenced: no on-screen diagnostics and no
@@ -42,7 +41,6 @@ return {
       end, { desc = 'Toggle sqlfluff [L]int + fix-on-save' })
 
       lint.linters.sqlfluff.args = { 'lint', '--format=json', '--dialect=databricks', '-' }
-      lint.linters.markdownlint.args = { '--stdin', '--disable', 'MD033', '--' }
     end,
   },
 }
